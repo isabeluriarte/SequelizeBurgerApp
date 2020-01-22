@@ -1,0 +1,42 @@
+body {
+    background-color: #ffd06e;
+}
+
+img {
+    width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    color: #cc4505;
+    text-align: center;
+}
+
+.add {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+}
+
+.undevoured {
+    width: 25%;
+}
+
+.devoured {
+    width: 25%;
+    float: right;
+}
+
+input[type=text] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }

@@ -1,0 +1,90 @@
+<img src="../assets/js/burger.png" alt="burger">
+
+<h1>Eat-Da-Burger!</h1>
+
+{{!-- Create a button in `index.handlebars` that will submit the user input into the database. --}}
+
+
+<div class="info">
+  <div class="undevoured">
+    <h2>Want to Devour:</h2>
+
+    <ul>
+      {{#each burgers}}
+      {{#unless devoured}}
+      <li>
+        {{burger_name}}
+        <button class="devour" data-id="{{id}}" data-devoured="{{devoured}}">Devour It!</button>
+      </li>
+      {{/unless}}
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="devoured">
+    <h2>Devoured:</h2>
+
+    <ul>
+      {{#each burgers}}
+      {{#if devoured}}
+      <li>
+        {{burger_name}}
+      </li>
+      {{/if}}
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+<div class="add">
+  <h2>Add a Burger</h2>
+  <form class="create-form">
+
+    <div class="form-group">
+      <label for="burgerInput">Enter a burger you want to eat:</label>
+      <br>
+      <input type="text" id="burgerInput" name="name">
+    </div>
+
+    <button type="submit">Add Burger</button>
+  </form>
+</div>
+
+
+<script>
+
+  $(".create-form").on("submit", function (event) {
+    event.preventDefault();
+    let burger_name = $("#burgerInput").val();
+    // Send POST request
+    $.ajax({
+      url: "/api/burgers",
+      type: "POST",
+      data: { burger_name },
+    }).then(function () {
+      location.reload();
+    })
+  });
+
+  $(".devour").on("click", function (event) {
+    var id = $(this).data("id");
+    var devoured = $(this).data("devoured");
+
+    var newDevouredState = {
+      devoured: true
+    };
+    // Send the PUT request
+    $.ajax("/api/burgers/" + id, {
+      type: "PUT",
+      data: newDevouredState
+    }).then(
+      function () {
+        console.log("changed devoured to", true);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+
+</script>
